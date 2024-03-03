@@ -2,12 +2,9 @@
 
 namespace App\Http\Requests;
 
-use App\Models\Cluster;
-use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
-class ClusterRequest extends FormRequest
+class AnimalRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -20,13 +17,17 @@ class ClusterRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @param Cluster $cluster
-     * @return array<string, ValidationRule|array<mixed>|string>
+     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
-    public function rules(Cluster $cluster): array
+    public function rules(): array
     {
         return [
-            'name' => ['required', 'string', Rule::unique('clusters', 'name')->ignore($this->cluster->id)]
+            'customer_id' => 'required|numeric|exists:customers,id',
+            'name' => 'string',
+            'species' => 'string',
+            'breed' => 'string',
+            'birth' => 'date',
+            'is_sterilized' => 'boolean'
         ];
     }
 
@@ -39,7 +40,6 @@ class ClusterRequest extends FormRequest
     {
         return [
             'required' => '":attribute" ' . __('common.validation_required'),
-            'unique' => '":attribute" ' . __('common.validation_unique'),
         ];
     }
 }

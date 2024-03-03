@@ -318,6 +318,16 @@ return [
             'label'       => 4,
             'label_color' => 'success',
         ],
+        [
+            'text'        => 'customers',
+            'url'         => 'customers',
+            'icon'        => 'fas fa-fw fa-users',
+        ],
+        [
+            'text'        => 'animals',
+            'url'         => 'animals',
+            'icon'        => 'fas fa-paw',
+        ],
         ['header' => 'account_settings'],
         [
             'text' => 'profile',

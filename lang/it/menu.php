@@ -18,4 +18,6 @@ return [
     'information'                   => 'Informazione',
     'article_settings'              => 'Impostazioni Articolo',
     'clusters'                      => 'Gruppi',
+    'animals'                       => 'Animali',
+    'customers'                     => 'Clienti'
 ];

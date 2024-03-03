@@ -1,6 +1,9 @@
 <?php
 
+use App\Http\Controllers\AnimalController;
 use App\Http\Controllers\ClusterController;
+use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\ProviderController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -33,4 +36,13 @@ Route::middleware(['auth'])->group(function () {
 
     // Clusters
     Route::resource('clusters', ClusterController::class);
+
+    // Providers
+    Route::resource('providers', ProviderController::class);
+
+    // Customers
+    Route::resource('customers', CustomerController::class);
+
+    // Animals
+    Route::resource('animals', AnimalController::class);
 });
