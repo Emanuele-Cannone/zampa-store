@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\DataTables\ClustersDataTable;
 use App\Http\Requests\ClusterRequest;
 use App\Models\Cluster;
-use http\Client\Response;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;

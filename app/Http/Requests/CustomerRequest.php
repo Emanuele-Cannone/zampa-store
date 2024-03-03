@@ -2,12 +2,11 @@
 
 namespace App\Http\Requests;
 
-use App\Models\Cluster;
-use Illuminate\Contracts\Validation\ValidationRule;
+use App\Models\Customer;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class ClusterRequest extends FormRequest
+class CustomerRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -20,13 +19,15 @@ class ClusterRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @param Cluster $cluster
-     * @return array<string, ValidationRule|array<mixed>|string>
+     * @param Customer $customer
+     * @return array
      */
-    public function rules(Cluster $cluster): array
+    public function rules(Customer $customer): array
     {
         return [
-            'name' => ['required', 'string', Rule::unique('clusters', 'name')->ignore($this->cluster->id)]
+            'name' => 'required|string',
+            'email' => ['required','email',Rule::unique(Customer::class, 'email')->ignore($this->customer->id)],
+            'phone_number' => 'nullable|string'
         ];
     }
 
