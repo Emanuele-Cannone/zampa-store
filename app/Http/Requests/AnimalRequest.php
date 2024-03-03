@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class AnimalRequest extends FormRequest
 {
@@ -22,12 +23,12 @@ class AnimalRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'customer_id' => 'required|numeric|exists:customers,id',
+            'customer_id' => 'required|exists:customers,id',
             'name' => 'string',
             'species' => 'string',
             'breed' => 'string',
+            'is_sterilized' => 'sometimes|boolean',
             'birth' => 'date',
-            'is_sterilized' => 'boolean'
         ];
     }
 

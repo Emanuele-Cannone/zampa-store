@@ -5,13 +5,18 @@ namespace App\Http\Controllers;
 use App\DataTables\AnimalsDataTable;
 use App\Http\Requests\AnimalRequest;
 use App\Models\Animal;
-use http\Env\Response;
+use App\Models\Customer;
+use App\Services\AnimalService;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class AnimalController extends Controller
 {
+
+    public function __construct(private AnimalService $service)
+    {
+    }
+
     /**
      * Display a listing of the resource.
      * @param AnimalsDataTable $dataTable
@@ -28,7 +33,13 @@ class AnimalController extends Controller
      */
     public function create(): View
     {
-        return view('animals.create');
+        return view('animals.create', [
+            'customers' => Customer::all()
+                ->map(fn(Customer $customer) => [
+                    'id' => $customer->id,
+                    'text' => $customer->name
+                ])
+        ]);
     }
 
     /**
@@ -57,7 +68,17 @@ class AnimalController extends Controller
      */
     public function edit(Animal $animal): View
     {
-        return view('animals.edit', ['animal' => $animal]);
+        return view('animals.edit',
+            [
+                'animal' => $animal,
+                'customers' => Customer::all()
+                    ->map(fn(Customer $customer) => [
+                        'id' => $customer->id,
+                        'text' => $customer->name,
+                        'selected' => $customer->id === $animal->customer->id
+                    ])
+            ]
+        );
     }
 
     /**
@@ -68,7 +89,7 @@ class AnimalController extends Controller
      */
     public function update(AnimalRequest $request, Animal $animal): RedirectResponse
     {
-        $animal->update($request->validated());
+        $this->service->update($request, $animal);
         return redirect()->route('animals.index');
     }
 
