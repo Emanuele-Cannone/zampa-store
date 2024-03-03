@@ -10,6 +10,9 @@ class Animal extends Model
 {
     use HasFactory;
 
+    /**
+     * @var string[]
+     */
     protected $fillable = [
         'customer_id',
         'name',

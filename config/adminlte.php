@@ -489,6 +489,26 @@ return [
                 ],
             ],
         ],
+        'iCheckBootstrap' => [
+            'active' => true,
+            'files' => [
+                [
+                    'type' => 'css',
+                    'asset' => true,
+                    'location' => 'vendor/icheck-bootstrap/icheck-bootstrap.min.css'
+                ]
+            ]
+        ],
+        'bootstrap-switch' => [
+            'active' => true,
+            'files' => [
+                [
+                    'type' => 'js',
+                    'asset' => true,
+                    'location' => 'vendor/bootstrap-switch/js/bootstrap-switch.js'
+                ]
+            ]
+        ],
         'Select2' => [
             'active' => true,
             'files' => [
