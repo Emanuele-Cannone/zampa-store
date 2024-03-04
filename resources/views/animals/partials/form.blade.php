@@ -103,7 +103,7 @@
             <div class="form-group col-sm-4">
                 <input type="checkbox" name="is_sterilized" data-bootstrap-switch="" value="1"
                     class="form-control @error('is_sterilized') is-invalid @enderror"
-                    {{ isset($animal) && $animal->is_sterilized ? 'checked' : '' }} >
+                    @checked(old('is_sterilized', $animal->is_sterilized)) >
             </div>
         </div>
     </div>
