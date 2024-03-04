@@ -27,7 +27,7 @@ class AnimalRequest extends FormRequest
             'name' => 'string',
             'species' => 'string',
             'breed' => 'string',
-            'is_sterilized' => 'accepted',
+            'is_sterilized' => 'boolean',
             'birth' => 'date',
         ];
     }
@@ -42,5 +42,15 @@ class AnimalRequest extends FormRequest
         return [
             'required' => '":attribute" ' . __('common.validation_required'),
         ];
+    }
+
+    /**
+     * @return void
+     */
+    protected function prepareForValidation(): void
+    {
+        $this->merge([
+            'is_sterilized' => (bool) $this->is_sterilized,
+        ]);
     }
 }

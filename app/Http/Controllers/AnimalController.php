@@ -6,17 +6,11 @@ use App\DataTables\AnimalsDataTable;
 use App\Http\Requests\AnimalRequest;
 use App\Models\Animal;
 use App\Models\Customer;
-use App\Services\AnimalService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 
 class AnimalController extends Controller
 {
-
-    public function __construct(private AnimalService $service)
-    {
-    }
-
     /**
      * Display a listing of the resource.
      * @param AnimalsDataTable $dataTable
@@ -89,7 +83,7 @@ class AnimalController extends Controller
      */
     public function update(AnimalRequest $request, Animal $animal): RedirectResponse
     {
-        $this->service->update($request, $animal);
+        $animal->update($request->validated());
         return redirect()->route('animals.index');
     }
 
