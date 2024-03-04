@@ -2,11 +2,13 @@
 
 namespace Database\Factories;
 
+use App\Models\AnimalTypology;
+use App\Models\Breed;
+use App\Models\Customer;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Database\Query\Builder;
 
-/**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Animal>
- */
+
 class AnimalFactory extends Factory
 {
     /**
@@ -17,10 +19,9 @@ class AnimalFactory extends Factory
     public function definition(): array
     {
         return [
-            'customer_id' => fake()->numberBetween(1,30),
-            'name' => fake()->firstName,
-            'species' => fake()->randomElement(['cane','gatto','pesce','uccello','topo']),
-            'breed' => fake()->word,
+            'customer_id' => fake()->randomElement(Customer::pluck('id')),
+            'breed_id' => fake('it_IT')->randomElement(Breed::pluck('id')),
+            'name' => fake('it_IT')->firstName,
             'birth' => fake()->date(),
             'is_sterilized' => fake()->boolean
         ];

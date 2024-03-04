@@ -2,8 +2,8 @@
 
 namespace App\Http\Requests;
 
+use Carbon\Carbon;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
 class AnimalRequest extends FormRequest
 {
@@ -25,10 +25,9 @@ class AnimalRequest extends FormRequest
         return [
             'customer_id' => 'required|exists:customers,id',
             'name' => 'string',
-            'species' => 'string',
-            'breed' => 'string',
-            'is_sterilized' => 'boolean',
-            'birth' => 'date',
+            'breed_id' => 'required|exists:breeds,id',
+            'is_sterilized' => 'required|boolean',
+            'birth' => 'date|date_format:Y-m-d|before:tomorrow',
         ];
     }
 
@@ -51,6 +50,7 @@ class AnimalRequest extends FormRequest
     {
         $this->merge([
             'is_sterilized' => (bool) $this->is_sterilized,
+            'birth' => Carbon::createFromFormat('d-m-Y', $this->birth)->format('Y-m-d')
         ]);
     }
 }

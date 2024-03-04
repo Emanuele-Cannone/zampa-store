@@ -5,8 +5,12 @@ namespace App\Http\Controllers;
 use App\DataTables\AnimalsDataTable;
 use App\Http\Requests\AnimalRequest;
 use App\Models\Animal;
+use App\Models\AnimalTypology;
+use App\Models\Breed;
 use App\Models\Customer;
+use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class AnimalController extends Controller
@@ -28,12 +32,26 @@ class AnimalController extends Controller
     public function create(): View
     {
         return view('animals.create', [
-            'customers' => Customer::all()
-                ->map(fn(Customer $customer) => [
-                    'id' => $customer->id,
-                    'text' => $customer->name
-                ])
-        ]);
+                'customers' => Customer::all()
+                    ->map(fn(Customer $customer) => [
+                        'id' => $customer->id,
+                        'text' => $customer->name
+                    ]),
+                'animals' => AnimalTypology::all()
+                    ->map(fn($animalTypology) => [
+                        'text' => $animalTypology->name,
+                        'children' =>
+                            Breed::where('animal_typology_id', $animalTypology->id)
+                                ->get()
+                                ->map(fn($breed) => [
+                                    'id' => $breed->id,
+                                    'text' => $breed->name
+                                ]
+                            )
+                        ]
+                    )
+            ]
+        );
     }
 
     /**
@@ -70,7 +88,21 @@ class AnimalController extends Controller
                         'id' => $customer->id,
                         'text' => $customer->name,
                         'selected' => $customer->id === $animal->customer->id
-                    ])
+                    ]),
+                'animals' => AnimalTypology::all()
+                    ->map(fn($animalTypology) => [
+                        'text' => $animalTypology->name,
+                        'children' =>
+                            Breed::where('animal_typology_id', $animalTypology->id)
+                                ->get()
+                                ->map(fn($breed) => [
+                                    'id' => $breed->id,
+                                    'text' => $breed->name,
+                                    'selected' => $breed->id === $animal->breed->id
+                                ]
+                            )
+                        ]
+                    )
             ]
         );
     }

@@ -3,7 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\DataTables\CustomersDataTable;
+use App\Http\Requests\ClusterUpdateRequest;
 use App\Http\Requests\CustomerRequest;
+use App\Http\Requests\CustomerUpdateRequest;
+use App\Models\AnimalTypology;
+use App\Models\Breed;
 use App\Models\Customer;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -64,11 +68,11 @@ class CustomerController extends Controller
 
     /**
      * Update the specified resource in storage.
-     * @param CustomerRequest $request
+     * @param ClusterUpdateRequest $request
      * @param Customer $customer
      * @return RedirectResponse
      */
-    public function update(CustomerRequest $request, Customer $customer): RedirectResponse
+    public function update(ClusterUpdateRequest $request, Customer $customer): RedirectResponse
     {
         $customer->update($request->validated());
         return redirect()->route('customers.index');

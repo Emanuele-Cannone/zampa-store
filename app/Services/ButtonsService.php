@@ -3,6 +3,8 @@
 namespace App\Services;
 
 use App\Models\Animal;
+use App\Models\AnimalTypology;
+use App\Models\Breed;
 use App\Models\Cluster;
 use App\Models\Customer;
 use App\Models\Provider;
@@ -15,16 +17,18 @@ class ButtonsService
     /**
      * Get route for item.
      *
-     * @param Animal|Customer|Provider|Cluster $item
+     * @param AnimalTypology|Breed|Animal|Customer|Provider|Cluster $item
      * @return string|null
      */
-    public static function getRouteType(Animal|Customer|Provider|Cluster $item): ?string
+    public static function getRouteType(AnimalTypology|Breed|Animal|Customer|Provider|Cluster $item): ?string
     {
         return match ($item->getTable()) {
             'clusters' => 'clusters',
             'providers' => 'providers',
             'customers' => 'customers',
             'animals' => 'animals',
+            'breeds' => 'breeds',
+            'animal_typologies' => 'animal-typologies',
             default => null
         };
     }
@@ -33,10 +37,10 @@ class ButtonsService
      * Get show button.
      *
      * @param bool $dataTable
-     * @param Animal|Customer|Provider|Cluster $item
+     * @param AnimalTypology|Breed|Animal|Customer|Provider|Cluster $item
      * @return string
      */
-    public static function showButton(bool $dataTable, Animal|Customer|Provider|Cluster $item): string
+    public static function showButton(bool $dataTable, AnimalTypology|Breed|Animal|Customer|Provider|Cluster $item): string
     {
         $route = self::getRouteType($item);
         $output = '';
@@ -52,10 +56,10 @@ class ButtonsService
      * Get edit button.
      *
      * @param bool $dataTable
-     * @param Animal|Customer|Provider|Cluster $item
+     * @param AnimalTypology|Breed|Animal|Customer|Provider|Cluster $item
      * @return string
      */
-    public static function editButton(bool $dataTable, Animal|Customer|Provider|Cluster $item): string
+    public static function editButton(bool $dataTable, AnimalTypology|Breed|Animal|Customer|Provider|Cluster $item): string
     {
         $route = self::getRouteType($item);
         $output = '';
@@ -71,11 +75,11 @@ class ButtonsService
      * Get delete button.
      *
      * @param bool $dataTable
-     * @param Animal|Customer|Provider|Cluster $item
+     * @param AnimalTypology|Breed|Animal|Customer|Provider|Cluster $item
      * @param string|null $type
      * @return string
      */
-    public static function deleteButton(bool $dataTable, Animal|Customer|Provider|Cluster $item, string $type = null): string
+    public static function deleteButton(bool $dataTable, AnimalTypology|Breed|Animal|Customer|Provider|Cluster $item, string $type = null): string
     {
         $route = self::getRouteType($item);
         $output = '';

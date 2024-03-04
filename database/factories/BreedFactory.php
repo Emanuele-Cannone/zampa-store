@@ -2,12 +2,13 @@
 
 namespace Database\Factories;
 
+use App\Models\AnimalTypology;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Cluster>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Breed>
  */
-class ClusterFactory extends Factory
+class BreedFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,6 +18,7 @@ class ClusterFactory extends Factory
     public function definition(): array
     {
         return [
+            'animal_typology_id' => fake()->randomElement(AnimalTypology::pluck('id')),
             'name' => fake('it_IT')->unique()->word()
         ];
     }

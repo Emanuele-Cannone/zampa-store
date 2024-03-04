@@ -2,10 +2,9 @@
 
 namespace App\DataTables;
 
-use App\Models\Cluster;
+use App\Models\AnimalTypology;
 use App\Services\ButtonsService;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
-use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Exceptions\Exception;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
@@ -15,12 +14,13 @@ use Yajra\DataTables\Html\Editor\Editor;
 use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
 
-class ClustersDataTable extends DataTable
+class AnimalTypologiesDataTable extends DataTable
 {
     /**
      * Build the DataTable class.
      *
      * @param QueryBuilder $query Results from query() method.
+     * @return EloquentDataTable
      * @throws Exception
      */
     public function dataTable(QueryBuilder $query): EloquentDataTable
@@ -30,10 +30,10 @@ class ClustersDataTable extends DataTable
             ->addColumn('action', function ($cluster) {
                 $output = '';
 //                if (Auth::user()->can('update-category')) {
-                    $output .= ButtonsService::editButton(true, $cluster);
+                $output .= ButtonsService::editButton(true, $cluster);
 //                }
 //                if (Auth::user()->can('delete-category')) {
-                    $output .= ButtonsService::deleteButton(true, $cluster);
+                $output .= ButtonsService::deleteButton(true, $cluster);
 //                }
                 return $output;
             })
@@ -43,12 +43,12 @@ class ClustersDataTable extends DataTable
     /**
      * Get the query source of dataTable.
      */
-    public function query(Cluster $model): QueryBuilder
+    public function query(AnimalTypology $model): QueryBuilder
     {
         $listing_cols = $this->getColumns();
-        $clusters = $model->select($listing_cols);
+        $animalTypologies = $model->select($listing_cols);
 
-        return $this->applyScopes($clusters);
+        return $this->applyScopes($animalTypologies);
     }
 
     /**
@@ -63,7 +63,7 @@ class ClustersDataTable extends DataTable
         ];
 
         return $this->builder()
-            ->setTableId('clusters_table')
+            ->setTableId('animaltypologies-table')
             ->columns($columns)
             ->minifiedAjax()
             ->language(asset('js/dataTables.Italian.json'))
@@ -104,8 +104,8 @@ class ClustersDataTable extends DataTable
     public function getColumns(): array
     {
         return [
-            'clusters.id',
-            'clusters.name'
+            'animal_typologies.id',
+            'animal_typologies.name'
         ];
     }
 
@@ -114,6 +114,6 @@ class ClustersDataTable extends DataTable
      */
     protected function filename(): string
     {
-        return 'Clusters_' . date('YmdHis');
+        return 'AnimalTypologies_' . date('YmdHis');
     }
 }

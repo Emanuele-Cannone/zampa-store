@@ -29,6 +29,12 @@ class AnimalsDataTable extends DataTable
             ->editColumn('customer_id', function (Animal $animal) {
                 return '<div>'. $animal->customer->name .'</div>';
             })
+            ->editColumn('breed_id', function (Animal $animal) {
+                return '<div>'. $animal->breed->name .'</div>';
+            })
+            ->editColumn('animal_typology_id', function (Animal $animal) {
+                return '<div>'. $animal->breed->animalTypology->name .'</div>';
+            })
             ->addColumn('action', function ($cluster) {
                 $output = '';
 //                if (Auth::user()->can('update-category')) {
@@ -39,7 +45,7 @@ class AnimalsDataTable extends DataTable
 //                }
                 return $output;
             })
-            ->rawColumns(['animal_id', 'customer_id', 'action']);
+            ->rawColumns(['animal_typology_id','breed_id', 'animal_id', 'customer_id', 'action']);
     }
 
     /**
@@ -65,15 +71,15 @@ class AnimalsDataTable extends DataTable
         ];
 
         $columns[] = [
-            'name' => 'species',
-            'title' => trans('common.species'),
-            'data' => 'species'
+            'name' => 'breed',
+            'title' => trans('common.breed'),
+            'data' => 'breed_id'
         ];
 
         $columns[] = [
-            'name' => 'breed',
+            'name' => 'typology',
             'title' => trans('common.breed'),
-            'data' => 'breed'
+            'data' => 'animal_typology_id'
         ];
 
         $columns[] = [
@@ -81,12 +87,6 @@ class AnimalsDataTable extends DataTable
             'title' => trans('common.customer'),
             'data' => 'customer_id'
         ];
-
-//        $columns[] = [
-//            'name' => 'customer',
-//            'title' => trans('common.customer'),
-//            'data' => 'customer'
-//        ];
 
         return $this->builder()
             ->setTableId('animals-table')
@@ -132,8 +132,7 @@ class AnimalsDataTable extends DataTable
         return [
             'animals.id',
             'animals.name',
-            'animals.species',
-            'animals.breed',
+            'animals.breed_id',
             'animals.customer_id',
         ];
     }

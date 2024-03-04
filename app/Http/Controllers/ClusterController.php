@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\DataTables\ClustersDataTable;
 use App\Http\Requests\ClusterRequest;
+use App\Http\Requests\ClusterUpdateRequest;
 use App\Models\Cluster;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
@@ -61,11 +62,11 @@ class ClusterController extends Controller
 
     /**
      * Update the specified resource in storage.
-     * @param ClusterRequest $request
+     * @param ClusterUpdateRequest $request
      * @param Cluster $cluster
      * @return RedirectResponse
      */
-    public function update(ClusterRequest $request, Cluster $cluster): RedirectResponse
+    public function update(ClusterUpdateRequest $request, Cluster $cluster): RedirectResponse
     {
         $cluster->update($request->validated());
         return redirect()->route('clusters.index');

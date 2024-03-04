@@ -2,15 +2,15 @@
     <script type="module">
         $(document).ready(function () {
 
-            $('#customerAnimal').select2({
+            $('#customer').select2({
                 data: @js($customers),
+                search: true
+            });
+
+            $('#animalBreed').select2({
+                data: @js($animals),
                 multiple: false,
-                search: true,
-                allowClear: true,
-                placeholder: {
-                    id: '-1',
-                    text: "@lang('common.enter_value')"
-                }
+                search: true
             });
 
             $("[name='is_sterilized']").bootstrapSwitch({
@@ -20,12 +20,25 @@
                 offText: 'No',
                 labelText: "@lang('common.sterilized')",
             });
+
+            $('#birth').daterangepicker({
+                singleDatePicker: true,
+                showDropdowns: true,
+                minYear: 1901,
+                locale: {
+                    format: 'DD-MM-YYYY'
+                }
+            })
         });
     </script>
 @endsection
 
 @section('adminlte_css')
     <style>
+        li.select2-results__option {
+            display: block !important;
+        }
+
         .select2-selection.select2-selection--single,
         .select2-selection.select2-selection--multiple {
             height: 38px !important;
@@ -57,57 +70,31 @@
             </div>
             <div class="form-group col-sm-4">
                 <div class="form-group">
-                    <label for="species">@lang('common.species') *</label>
-                    <input type="text" id="species" name="species"
-                           value="{{ isset($animal) ? $animal->species : old('species') }}"
-                           class="form-control @error('species') is-invalid @enderror"
-                           required>
-                    <small class="text-danger">@error('species') {{ $message }}@enderror</small>
-                </div>
-            </div>
-            <div class="form-group col-sm-4">
-                <div class="form-group">
-                    <label for="breed">@lang('common.breed')</label>
-                    <input type="text" id="breed" name="breed"
-                           value="{{ isset($animal) ? $animal->breed : old('breed') }}"
-                           class="form-control @error('breed') is-invalid @enderror"
-                           placeholder="@lang('common.enter_value')">
-                    <small class="text-danger">@error('breed') {{ $message }}@enderror</small>
-                </div>
-            </div>
-            <div class="form-group col-sm-4">
-                <div class="form-group">
                     <label for="birth">@lang('common.birth')</label>
-                    <input type="date" id="birth" name="birth"
-                           value="{{ isset($animal) ? $animal->birth : old('birth') }}"
+                    <input id="birth" name="birth"
+                           value="{{ isset($animal) ? Carbon\Carbon::createFromFormat('Y-m-d',$animal->birth)->format('d-m-Y') : old('birth') }}"
                            class="form-control @error('birth') is-invalid @enderror">
                     <small class="text-danger">@error('birth') {{ $message }}@enderror</small>
                 </div>
             </div>
             <div class="form-group col-sm-4">
-                <div class="form-group">
-                    <label for="breed">@lang('common.breed')</label>
-                    <input type="text" id="breed" name="breed"
-                           value="{{ isset($animal) ? $animal->breed : old('breed') }}"
-                           class="form-control @error('breed') is-invalid @enderror"
-                           placeholder="@lang('common.enter_value')">
-                    <small class="text-danger">@error('breed') {{ $message }}@enderror</small>
-                </div>
-            </div>
-            <div class="form-group col-sm-4">
-                <label for="customerAnimal">@lang('common.breed')</label>
-                <select id="customerAnimal" class="w-100" name="customer_id">
-                    <option value="" disabled selected>@lang('common.enter_value')</option>
+                <label for="animalBreed">@lang('common.breed')</label>
+                <select id="animalBreed" class="w-100" name="breed_id">
                 </select>
             </div>
             <div class="form-group col-sm-4">
+                <label for="customer">@lang('common.customer')</label>
+                <select id="customer" class="w-100" name="customer_id">
+                </select>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="form-group col-sm-4">
                 <input type="checkbox" name="is_sterilized" data-bootstrap-switch=""
-                    class="form-control @error('is_sterilized') is-invalid @enderror"
-                    @checked(old('is_sterilized', $animal->is_sterilized)) >
+                       class="form-control @error('is_sterilized') is-invalid @enderror"
+                    @checked(old('is_sterilized', isset($animal) ?? $animal->is_sterilized)) >
             </div>
         </div>
     </div>
 </div>
 <p>* @lang('common.required_fields')</p>
-
-
