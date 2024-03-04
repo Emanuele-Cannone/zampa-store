@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\AnimalController;
+use App\Http\Controllers\AnimalTypologyController;
+use App\Http\Controllers\BreedController;
 use App\Http\Controllers\ClusterController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ProviderController;
@@ -45,4 +47,10 @@ Route::middleware(['auth'])->group(function () {
 
     // Animals
     Route::resource('animals', AnimalController::class);
+
+    // Breeds
+    Route::resource('breeds', BreedController::class);
+
+    // AnimalTypologies
+    Route::resource('animal-typologies', AnimalTypologyController::class);
 });

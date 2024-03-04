@@ -16,9 +16,8 @@ class Animal extends Model
     protected $fillable = [
         'customer_id',
         'name',
-        'species',
-        'breed',
-        'year_birth',
+        'breed_id',
+        'birth',
         'is_sterilized'
     ];
 
@@ -29,5 +28,13 @@ class Animal extends Model
     public function customer(): BelongsTo
     {
         return $this->BelongsTo(Customer::class);
+    }
+
+    /**
+     * @return BelongsTo
+     */
+    public function breed(): BelongsTo
+    {
+        return $this->BelongsTo(Breed::class);
     }
 }

@@ -2,12 +2,12 @@
 
 namespace App\Http\Requests;
 
-use App\Models\Cluster;
+use App\Models\Breed;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class ClusterRequest extends FormRequest
+class BreedRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,20 +25,8 @@ class ClusterRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'string', Rule::unique(Cluster::class, 'name')]
-        ];
-    }
-
-    /**
-     * Get the error messages for the defined validation rules.
-     *
-     * @return array
-     */
-    public function messages(): array
-    {
-        return [
-            'required' => '":attribute" ' . __('common.validation_required'),
-            'unique' => '":attribute" ' . __('common.validation_unique'),
+            'name' => ['required','string', Rule::unique(Breed::class, 'name')],
+            'animal_typology_id' => ['required','exists:animal_typologies,id']
         ];
     }
 }

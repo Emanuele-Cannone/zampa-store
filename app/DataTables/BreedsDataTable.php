@@ -2,10 +2,9 @@
 
 namespace App\DataTables;
 
-use App\Models\Cluster;
+use App\Models\Breed;
 use App\Services\ButtonsService;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
-use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Exceptions\Exception;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
@@ -15,40 +14,44 @@ use Yajra\DataTables\Html\Editor\Editor;
 use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
 
-class ClustersDataTable extends DataTable
+class BreedsDataTable extends DataTable
 {
     /**
      * Build the DataTable class.
      *
      * @param QueryBuilder $query Results from query() method.
+     * @return EloquentDataTable
      * @throws Exception
      */
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return datatables()
             ->eloquent($query)
+            ->editColumn('animal_typology_id', function (Breed $breed) {
+                return '<div>'. $breed->animalTypology->name .'</div>';
+            })
             ->addColumn('action', function ($cluster) {
                 $output = '';
 //                if (Auth::user()->can('update-category')) {
-                    $output .= ButtonsService::editButton(true, $cluster);
+                $output .= ButtonsService::editButton(true, $cluster);
 //                }
 //                if (Auth::user()->can('delete-category')) {
-                    $output .= ButtonsService::deleteButton(true, $cluster);
+                $output .= ButtonsService::deleteButton(true, $cluster);
 //                }
                 return $output;
             })
-            ->rawColumns(['action']);
+            ->rawColumns(['animal_typology_id','action']);
     }
 
     /**
      * Get the query source of dataTable.
      */
-    public function query(Cluster $model): QueryBuilder
+    public function query(Breed $model): QueryBuilder
     {
         $listing_cols = $this->getColumns();
-        $clusters = $model->select($listing_cols);
+        $breeds = $model->select($listing_cols);
 
-        return $this->applyScopes($clusters);
+        return $this->applyScopes($breeds);
     }
 
     /**
@@ -61,9 +64,13 @@ class ClustersDataTable extends DataTable
             'title' => trans('common.name'),
             'data' => 'name'
         ];
-
+        $columns[] = [
+            'name' => 'animal_typology_id',
+            'title' => trans('common.animal_typology'),
+            'data' => 'animal_typology_id'
+        ];
         return $this->builder()
-            ->setTableId('clusters_table')
+            ->setTableId('breeds-table')
             ->columns($columns)
             ->minifiedAjax()
             ->language(asset('js/dataTables.Italian.json'))
@@ -104,8 +111,9 @@ class ClustersDataTable extends DataTable
     public function getColumns(): array
     {
         return [
-            'clusters.id',
-            'clusters.name'
+            'breeds.id',
+            'breeds.name',
+            'breeds.animal_typology_id'
         ];
     }
 
@@ -114,6 +122,6 @@ class ClustersDataTable extends DataTable
      */
     protected function filename(): string
     {
-        return 'Clusters_' . date('YmdHis');
+        return 'Breeds_' . date('YmdHis');
     }
 }
