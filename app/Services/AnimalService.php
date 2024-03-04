@@ -19,9 +19,9 @@ class AnimalService
 
             $validated = $request->validated();
 
-            array_key_exists('is_sterilized', $validated) ?
-                $validated['is_sterilized'] = true :
-                $validated['is_sterilized'] = false;
+//            array_key_exists('is_sterilized', $validated) ?
+//                $validated['is_sterilized'] = true :
+//                $validated['is_sterilized'] = false;
 
             $animal->update($validated);
 

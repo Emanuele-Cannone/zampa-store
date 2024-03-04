@@ -27,7 +27,7 @@ class AnimalRequest extends FormRequest
             'name' => 'string',
             'species' => 'string',
             'breed' => 'string',
-            'is_sterilized' => 'sometimes|boolean',
+            'is_sterilized' => 'accepted',
             'birth' => 'date',
         ];
     }
