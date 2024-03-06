@@ -378,6 +378,22 @@ return [
             ],
         ],
         [
+            'text'    => 'providers',
+            'icon'    => 'fas fa-cog',
+            'submenu' => [
+                [
+                    'text' => 'provider_invoices',
+                    'url'  => '/provider-invoices',
+                    'icon' => 'fas fa-server',
+                ],
+                [
+                    'text' => 'providers',
+                    'url'  => '/providers',
+                    'icon' => 'fas fa-server',
+                ],
+            ],
+        ],
+        [
             'text'    => 'article_settings',
             'icon'    => 'fas fa-cog',
             'submenu' => [
@@ -386,33 +402,21 @@ return [
                     'url'  => '/clusters',
                     'icon' => 'fas fa-server',
                 ],
+            ],
+        ],
+        [
+            'text'    => 'animal_settings',
+            'icon'    => 'fas fa-cog',
+            'submenu' => [
                 [
-                    'text'    => 'level_one',
-                    'url'     => '#',
-                    'submenu' => [
-                        [
-                            'text' => 'level_two',
-                            'url'  => '#',
-                        ],
-                        [
-                            'text'    => 'level_two',
-                            'url'     => '#',
-                            'submenu' => [
-                                [
-                                    'text' => 'level_three',
-                                    'url'  => '#',
-                                ],
-                                [
-                                    'text' => 'level_three',
-                                    'url'  => '#',
-                                ],
-                            ],
-                        ],
-                    ],
+                    'text' => 'breeds',
+                    'url'  => '/breeds',
+                    'icon' => 'fas fa-server',
                 ],
                 [
-                    'text' => 'level_one',
-                    'url'  => '#',
+                    'text' => 'animal_typologies',
+                    'url'  => '/animal-typologies',
+                    'icon' => 'fas fa-server',
                 ],
             ],
         ],
