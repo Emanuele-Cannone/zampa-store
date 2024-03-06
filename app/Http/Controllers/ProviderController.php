@@ -77,6 +77,6 @@ class ProviderController extends Controller
     public function destroy(Provider $provider)
     {
         $provider->delete();
-        return response()->json('ok', 201);
+        return response()->json('ok', 200);
     }
 }

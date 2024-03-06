@@ -80,6 +80,6 @@ class ClusterController extends Controller
     public function destroy(Cluster $cluster): JsonResponse
     {
         $cluster->delete();
-        return response()->json('ok', 201);
+        return response()->json('ok', 200);
     }
 }

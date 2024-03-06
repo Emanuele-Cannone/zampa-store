@@ -93,6 +93,7 @@ class BreedController extends Controller
      */
     public function destroy(Breed $breed)
     {
-        //
+        $breed->delete();
+        return response()->json('ok',200);
     }
 }

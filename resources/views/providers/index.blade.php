@@ -26,4 +26,5 @@
 
 @section('adminlte_js')
     {!! $dataTable->scripts() !!}
+    @vite(['resources/js/delete.js'])
 @stop

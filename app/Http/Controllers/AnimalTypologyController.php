@@ -69,6 +69,7 @@ class AnimalTypologyController extends Controller
      */
     public function destroy(AnimalTypology $animalTypology)
     {
-        //
+        $animalTypology->delete();
+        return response()->json('ok',200);
     }
 }
