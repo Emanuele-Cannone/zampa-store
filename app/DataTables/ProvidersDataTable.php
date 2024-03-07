@@ -63,24 +63,6 @@ class ProvidersDataTable extends DataTable
         ];
 
         $columns[] = [
-            'name' => 'city',
-            'title' => trans('common.city'),
-            'data' => 'city'
-        ];
-
-        $columns[] = [
-            'name' => 'country',
-            'title' => trans('common.country'),
-            'data' => 'country'
-        ];
-
-        $columns[] = [
-            'name' => 'email',
-            'title' => trans('common.email'),
-            'data' => 'email'
-        ];
-
-        $columns[] = [
             'name' => 'telephone',
             'title' => trans('common.telephone'),
             'data' => 'telephone'

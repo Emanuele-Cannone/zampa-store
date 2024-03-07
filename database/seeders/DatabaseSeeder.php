@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
 //         \App\Models\AnimalTypology::factory(5)->create();
          \App\Models\Breed::factory(20)->create();
          \App\Models\Animal::factory(40)->create();
+         \App\Models\ProviderInvoice::factory(100)->create();
 
         // \App\Models\AnimalTypology::factory()->create([
         //     'name' => 'Test User',
