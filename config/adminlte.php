@@ -328,6 +328,11 @@ return [
             'url'         => 'animals',
             'icon'        => 'fas fa-paw',
         ],
+        [
+            'text'        => 'articles',
+            'url'         => 'articles',
+            'icon'        => 'fas fa-warehouse',
+        ],
         ['header' => 'account_settings'],
         [
             'text' => 'profile',

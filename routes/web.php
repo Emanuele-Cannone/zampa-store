@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AnimalController;
+use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\AnimalTypologyController;
 use App\Http\Controllers\BreedController;
 use App\Http\Controllers\ClusterController;
@@ -36,6 +37,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/home', function() {
         return view('home');
     })->name('home');
+
+    //Articles
+    Route::resource('articles', ArticleController::class);
 
     // Clusters
     Route::resource('clusters', ClusterController::class);
