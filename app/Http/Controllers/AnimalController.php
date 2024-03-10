@@ -9,6 +9,7 @@ use App\Models\AnimalTypology;
 use App\Models\Breed;
 use App\Models\Customer;
 use Carbon\Carbon;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -121,8 +122,10 @@ class AnimalController extends Controller
 
     /**
      * Remove the specified resource from storage.
+     * @param Animal $animal
+     * @return JsonResponse
      */
-    public function destroy(Animal $animal)
+    public function destroy(Animal $animal): JsonResponse
     {
         $animal->delete();
         return response()->json('ok', 200);

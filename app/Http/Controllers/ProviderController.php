@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\DataTables\ProvidersDataTable;
 use App\Http\Requests\ProviderRequest;
 use App\Models\Provider;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -73,8 +74,10 @@ class ProviderController extends Controller
 
     /**
      * Remove the specified resource from storage.
+     * @param Provider $provider
+     * @return JsonResponse
      */
-    public function destroy(Provider $provider)
+    public function destroy(Provider $provider): JsonResponse
     {
         $provider->delete();
         return response()->json('ok', 200);

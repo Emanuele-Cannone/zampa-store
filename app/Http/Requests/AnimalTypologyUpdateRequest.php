@@ -25,7 +25,11 @@ class AnimalTypologyUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required','string',Rule::unique(AnimalTypology::class, 'name')->ignore($this->id)]
+            'name' => [
+                'required',
+                'string',
+                Rule::unique(AnimalTypology::class)->ignore($this->request->get('name'),'name')
+            ]
         ];
     }
 }

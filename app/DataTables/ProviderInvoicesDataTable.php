@@ -45,7 +45,7 @@ class ProviderInvoicesDataTable extends DataTable
 //                }
                 return $output;
             })
-            ->rawColumns(['provider_id','paid','provider_invoice_id', 'action']);
+            ->rawColumns(['provider_id','paid', 'action']);
     }
 
     /**
@@ -54,10 +54,9 @@ class ProviderInvoicesDataTable extends DataTable
     public function query(ProviderInvoice $model): QueryBuilder
     {
         $listing_cols = $this->getColumns();
-        $providers = $model->select($listing_cols)
-        ->with('provider');
 
-        return $this->applyScopes($providers);
+        return $model->select($listing_cols)
+            ->with(['provider']);
     }
 
     /**
@@ -66,7 +65,7 @@ class ProviderInvoicesDataTable extends DataTable
     public function html(): HtmlBuilder
     {
         $columns[] = [
-            'name' => 'provider_id',
+            'name' => 'provider.company_name',
             'title' => trans('common.name'),
             'data' => 'provider_id'
         ];
@@ -138,7 +137,7 @@ class ProviderInvoicesDataTable extends DataTable
     {
         return [
             'provider_invoices.id',
-            'providers.name',
+            'provider_invoices.provider_id',
             'provider_invoices.amount',
             'provider_invoices.date',
             'provider_invoices.paid',

@@ -6,6 +6,7 @@ use App\Http\Controllers\AnimalTypologyController;
 use App\Http\Controllers\BreedController;
 use App\Http\Controllers\ClusterController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\LoyaltyCardController;
 use App\Http\Controllers\ProviderController;
 use App\Http\Controllers\ProviderInvoiceController;
 use Illuminate\Support\Facades\Auth;
@@ -61,4 +62,7 @@ Route::middleware(['auth'])->group(function () {
 
     // ProviderInvoices
     Route::resource('provider-invoices', ProviderInvoiceController::class);
+
+    // ProviderInvoices
+    Route::resource('loyalty-card', LoyaltyCardController::class);
 });

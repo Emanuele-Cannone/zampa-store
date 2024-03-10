@@ -24,8 +24,8 @@ class BreedUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required','string',Rule::unique(Breed::class, 'name')->ignore($this->id)],
-            'animal_typology_id' => ['required','exists:animal_typologies,id']
+            'name' => ['required', 'string', Rule::unique(Breed::class)->ignore($this->request->get('name'), 'name')],
+            'animal_typology_id' => ['required', 'exists:animal_typologies,id']
         ];
     }
 }

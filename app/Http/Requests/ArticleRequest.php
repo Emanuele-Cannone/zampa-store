@@ -18,11 +18,11 @@ class ArticleRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'ean_code' => ['required', 'string', Rule::unique(Article::class, 'ean_code')],
-            'product_code' => ['required', 'string', Rule::unique(Article::class, 'product_code')],
-            'description' => 'required',
-            'is_active'=>'required',
-            'in_order'=>'required',
+            'ean_code' => ['required', 'string', Rule::unique('articles','ean_code')],
+            'product_code' => ['required', 'string', Rule::unique('articles','product_code')],
+            'description' => 'required|string',
+            'is_active'=> 'required|boolean',
+            'in_order'=> 'required|boolean',
         ];
     }
 
@@ -37,6 +37,17 @@ class ArticleRequest extends FormRequest
             'required' => '":attribute" ' . __('common.validation_required'),
             'unique' => '":attribute" ' . __('common.validation_unique'),
         ];
+    }
+
+    /**
+     * @return void
+     */
+    protected function prepareForValidation(): void
+    {
+        $this->merge([
+            'in_order' => (bool) $this->is_sterilized,
+            'is_active' => (bool) $this->is_active,
+        ]);
     }
 
 }

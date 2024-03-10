@@ -20,11 +20,11 @@ class ArticleUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'ean_code' => ['required',Rule::unique(Article::class, 'name')->ignore($this->id)],
-            'customer_code' => ['required',Rule::unique(Article::class, 'name')->ignore($this->id)],
-            'description' => 'required',
-            'is_active'=>'required',
-            'is_order'=>'required',
+            'ean_code' => ['required','string', Rule::unique(Article::class)->ignore($this->request->get('ean_code'),'ean_code')],
+            'product_code' => ['required', 'string', Rule::unique(Article::class)->ignore($this->request->get('product_code'),'product_code')],
+            'description' => 'required|string',
+            'is_active'=> 'required|boolean',
+            'in_order'=> 'required|boolean',
         ];
     }
 
@@ -39,6 +39,17 @@ class ArticleUpdateRequest extends FormRequest
             'required' => '":attribute" ' . __('common.validation_required'),
             'unique' => '":attribute" ' . __('common.validation_unique'),
         ];
+    }
+
+    /**
+     * @return void
+     */
+    protected function prepareForValidation(): void
+    {
+        $this->merge([
+            'in_order' => (bool) $this->in_order,
+            'is_active' => (bool) $this->is_active,
+        ]);
     }
 
 }

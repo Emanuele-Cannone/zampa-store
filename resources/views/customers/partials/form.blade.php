@@ -15,7 +15,7 @@
                     <label for="email">@lang('common.email') *</label>
                     <input type="email" id="email" name="email" value="{{ isset($customer) ? $customer->email : old('email') }}"
                            class="form-control @error('email') is-invalid @enderror"
-                           required >
+                           placeholder="@lang('common.enter_value')" required >
                     <small class="text-danger">@error('email') {{ $message }}@enderror</small>
                 </div>
             </div>
@@ -26,6 +26,17 @@
                            class="form-control @error('phone_number') is-invalid @enderror"
                            placeholder="@lang('common.enter_value')" >
                     <small class="text-danger">@error('phone_number') {{ $message }}@enderror</small>
+                </div>
+            </div>
+            <div class="form-group col-sm-4">
+                <div class="form-group">
+                    <label for="loyaltyCard">@lang('common.points')</label>
+                    <input type="text" id="loyaltyCard" name="points"
+                           @disabled(isset($customer) && !$customer->loyaltyCard)
+                           value="{{ isset($customer->loyaltyCard) ? $customer->loyaltyCard->points : old('points') }}"
+                           class="form-control @error('points') is-invalid @enderror"
+                           placeholder="@lang('common.enter_value')" >
+                    <small class="text-danger">@error('points') {{ $message }}@enderror</small>
                 </div>
             </div>
         </div>

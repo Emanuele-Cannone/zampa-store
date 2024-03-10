@@ -49,9 +49,9 @@ class BreedsDataTable extends DataTable
     public function query(Breed $model): QueryBuilder
     {
         $listing_cols = $this->getColumns();
-        $breeds = $model->select($listing_cols);
 
-        return $this->applyScopes($breeds);
+        return $model->select($listing_cols)
+            ->with(['animalTypology']);
     }
 
     /**
@@ -65,7 +65,7 @@ class BreedsDataTable extends DataTable
             'data' => 'name'
         ];
         $columns[] = [
-            'name' => 'animal_typology_id',
+            'name' => 'animalTypology.name',
             'title' => trans('common.animal_typology'),
             'data' => 'animal_typology_id'
         ];
