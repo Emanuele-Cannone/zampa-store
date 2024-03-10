@@ -18,6 +18,26 @@
                             class="fas fa-save"></i> @lang('common.edit')</button>
                 </div>
             </form>
+            @if(!$customer->loyaltyCard)
+            <form action="{{ route('loyalty-card.store') }}" method="post">
+                @method('post')
+                @csrf
+                <input type="hidden" name="customer_id" value="{{ $customer->id }}">
+                <div class="form-group">
+                    <button class="btn btn-success" type="submit"><i
+                            class="fas fa-save"></i> @lang('common.card')</button>
+                </div>
+            </form>
+            @else
+                <form action="{{ route('loyalty-card.edit', $customer->loyaltyCard) }}" method="post">
+                    @method('PUT')
+                    @csrf
+                    <div class="form-group">
+                        <button class="btn btn-warning" type="submit"><i
+                                class="fas fa-save"></i> @lang('common.card')</button>
+                    </div>
+                </form>
+            @endif
         </div>
     </div>
 @stop

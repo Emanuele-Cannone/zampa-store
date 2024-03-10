@@ -5,15 +5,9 @@ namespace App\Http\Controllers;
 use App\DataTables\CustomersDataTable;
 use App\Http\Requests\ClusterUpdateRequest;
 use App\Http\Requests\CustomerRequest;
-use App\Http\Requests\CustomerUpdateRequest;
-use App\Models\AnimalTypology;
-use App\Models\Breed;
 use App\Models\Customer;
-use Illuminate\Contracts\Foundation\Application;
-use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class CustomerController extends Controller

@@ -3,6 +3,7 @@
 namespace App\DataTables;
 
 use App\Models\Customer;
+use App\Models\LoyaltyCard;
 use App\Services\ButtonsService;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Yajra\DataTables\EloquentDataTable;
@@ -27,17 +28,22 @@ class CustomersDataTable extends DataTable
     {
         return datatables()
             ->eloquent($query)
-            ->addColumn('action', function ($cluster) {
+            ->editColumn('loyalty_card', function (Customer $customer) {
+                return $customer->loyaltyCard ?
+                    '<div><i class="text-md text-green far fa-check-circle"></i></div>' :
+                    '<div><i class="text-md text-danger far fa-times-circle"></i></div>';
+            })
+            ->addColumn('action', function ($customer) {
                 $output = '';
 //                if (Auth::user()->can('update-category')) {
-                $output .= ButtonsService::editButton(true, $cluster);
+                $output .= ButtonsService::editButton(true, $customer);
 //                }
 //                if (Auth::user()->can('delete-category')) {
-                $output .= ButtonsService::deleteButton(true, $cluster);
+                $output .= ButtonsService::deleteButton(true, $customer);
 //                }
                 return $output;
             })
-            ->rawColumns(['customer_id', 'action']);
+            ->rawColumns(['loyalty_card','customer_id', 'action']);
     }
 
     /**
@@ -46,9 +52,7 @@ class CustomersDataTable extends DataTable
     public function query(Customer $model): QueryBuilder
     {
         $listing_cols = $this->getColumns();
-        $customers = $model->select($listing_cols);
-
-        return $this->applyScopes($customers);
+        return $model->select($listing_cols)->with(['loyaltyCard']);
     }
 
     /**
@@ -72,6 +76,12 @@ class CustomersDataTable extends DataTable
             'name' => 'email',
             'title' => trans('common.email'),
             'data' => 'email'
+        ];
+
+        $columns[] = [
+            'name' => 'loyaltyCard.id',
+            'title' => trans('common.card'),
+            'data' => 'loyalty_card'
         ];
 
         return $this->builder()

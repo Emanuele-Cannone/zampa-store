@@ -3,13 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\DataTables\BreedsDataTable;
-use App\Http\Requests\AnimalRequest;
 use App\Http\Requests\BreedRequest;
 use App\Http\Requests\BreedUpdateRequest;
 use App\Models\AnimalTypology;
 use App\Models\Breed;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 
 class BreedController extends Controller
@@ -90,8 +89,10 @@ class BreedController extends Controller
 
     /**
      * Remove the specified resource from storage.
+     * @param Breed $breed
+     * @return JsonResponse
      */
-    public function destroy(Breed $breed)
+    public function destroy(Breed $breed): JsonResponse
     {
         $breed->delete();
         return response()->json('ok',200);

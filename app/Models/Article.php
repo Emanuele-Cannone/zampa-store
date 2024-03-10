@@ -12,6 +12,7 @@ class Article extends Model
     protected $fillable = [
         'ean_code',
         'product_code',
+        'min_quantity',
         'description',
         'is_active',
         'in_order',

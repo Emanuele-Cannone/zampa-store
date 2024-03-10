@@ -24,7 +24,7 @@ class ClusterUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'string', Rule::unique(Cluster::class, 'name')->ignore($this->id)]
+            'name' => ['required', 'string', Rule::unique(Cluster::class)->ignore($this->request->get('name'),'name')]
         ];
     }
 }
